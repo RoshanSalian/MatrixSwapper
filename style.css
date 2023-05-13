@@ -90,4 +90,10 @@ button:disabled {
     cursor: not-allowed; /* example: change cursor for disabled button */
 }
 
+/* .box {
+    background-color: transparent;
+} */
 
+td div.box {
+    background-color: transparent;
+}
