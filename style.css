@@ -16,11 +16,7 @@ table {
 }   
 
 td{
-    padding: 15px;
-    font-size: 56px;
-    transition: transform 0.5s ease-in-out;
-    text-align: center;
-    vertical-align: middle;
+    padding: 0px;
 }
 
 td.dragging{
@@ -86,14 +82,14 @@ button:focus {
 }
 
 button:disabled {
-    opacity: 0.5; /* example: reduce opacity for disabled button */
-    cursor: not-allowed; /* example: change cursor for disabled button */
+    opacity: 0.5; 
+    cursor: not-allowed; 
 }
 
-/* .box {
-    background-color: transparent;
-} */
-
 td div.box {
-    background-color: transparent;
+    padding: 15px;
+    font-size: 56px;
+    transition: transform 0.5s ease-in-out;
+    text-align: center;
+    vertical-align: middle;
 }

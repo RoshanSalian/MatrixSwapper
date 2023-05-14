@@ -22,30 +22,27 @@ for (var i = 0; i < allCells.length; i++) {
         if (draggedElement != null) {
             var targetElement = event.target;
 
-            var sourceClass = draggedElement.classList[1]
-            var targetClass = targetElement.classList[1]
+            let targetHolder = targetElement.parentNode
+            let sourceHolder = draggedElement
+
+            if (sourceHolder.classList.contains("dragging")) {
+                sourceHolder.classList.remove("dragging");
+            }
+
+            var sourceChild = targetHolder.querySelector('div');
+            var targetChild = sourceHolder.querySelector('div');
+
+            targetHolder.replaceChild(targetChild, sourceChild)
+            sourceHolder.appendChild(sourceChild)
 
             var beforeSwap = { 
-                sourceElement: sourceClass,
-                targetElement: targetClass
+                sourceElement: sourceChild,
+                targetElement: targetChild
             };
-            
 
-            draggedElement.classList.remove(sourceClass)
-            draggedElement.classList.add(targetClass)
-            targetElement.classList.remove(targetClass)
-            targetElement.classList.add(sourceClass)
-
-            draggedElement.classList.remove('dragging')
-            targetElement.classList.remove('dragging')
-
-            var temp = draggedElement.innerHTML
-            draggedElement.innerHTML = targetElement.innerHTML;
-            targetElement.innerHTML = temp
-
-            var afterSwap = { // create object to represent before and after states of swap
-                sourceElement: targetClass,
-                targetElement: sourceClass
+            var afterSwap = {
+                sourceElement: targetChild,
+                targetElement: sourceChild
             };
             swapHistory.push({before: beforeSwap, after: afterSwap});
 
@@ -63,17 +60,15 @@ undoButton.addEventListener('click', function() {
         var sourceClass = lastSwap.before.sourceElement;
         var targetClass = lastSwap.before.targetElement;
 
-        var sourceElement = document.getElementsByClassName(sourceClass)[0];
-        var targetElement = document.getElementsByClassName(targetClass)[0];
+        var sourceElement = document.getElementById(sourceClass.id);
+        var targetElement = document.getElementById(targetClass.id);
 
-        sourceElement.classList.remove(sourceClass);
-        sourceElement.classList.add(targetClass);
-        targetElement.classList.remove(targetClass);
-        targetElement.classList.add(sourceClass);
+        let sourceHolder = sourceElement.parentNode
+        let targetHolder = targetElement.parentNode
 
-        var temp = sourceElement.innerHTML;
-        sourceElement.innerHTML = targetElement.innerHTML;
-        targetElement.innerHTML = temp;
+        // swap logic goes here
+        targetHolder.replaceChild(sourceElement, targetElement)
+        sourceHolder.appendChild(targetElement)
     }
 
     if (swapHistory.length === 0) {
