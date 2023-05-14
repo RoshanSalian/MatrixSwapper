@@ -1,10 +1,11 @@
 var draggedElement = null;
 var dragoverElement = null;
 var draggableElements = document.getElementsByClassName('draggable');
-var swapHistory = []
+var swapHistory = []    // Container to hold the previous states for undo functionality
 var undoButton = document.getElementById('undo');
-undoButton.disabled = true;
+undoButton.disabled = true;     // Undo button is disbaled by default
 
+// Adding event listner for the animation part of swappign
 for (var i = 0; i < draggableElements.length; i++) {
     draggableElements[i].addEventListener('dragstart', function(event) {
         draggedElement = event.target;
@@ -35,6 +36,7 @@ for (var i = 0; i < allCells.length; i++) {
             targetHolder.replaceChild(targetChild, sourceChild)
             sourceHolder.appendChild(sourceChild)
 
+            // Saving the before and after state
             var beforeSwap = { 
                 sourceElement: sourceChild,
                 targetElement: targetChild
@@ -46,6 +48,7 @@ for (var i = 0; i < allCells.length; i++) {
             };
             swapHistory.push({before: beforeSwap, after: afterSwap});
 
+            // logic to disable the undo button if no swaps done
             if (swapHistory.length > 0) {
                 undoButton.disabled = false;
             }
@@ -53,10 +56,10 @@ for (var i = 0; i < allCells.length; i++) {
     });
 }
 
-
+// Undo button logic
 undoButton.addEventListener('click', function() {
     if (swapHistory.length > 0) {
-        var lastSwap = swapHistory.pop(); // remove last swap from history
+        var lastSwap = swapHistory.pop();
         var sourceClass = lastSwap.before.sourceElement;
         var targetClass = lastSwap.before.targetElement;
 
@@ -66,7 +69,7 @@ undoButton.addEventListener('click', function() {
         let sourceHolder = sourceElement.parentNode
         let targetHolder = targetElement.parentNode
 
-        // swap logic goes here
+        // swap logic
         targetHolder.replaceChild(sourceElement, targetElement)
         sourceHolder.appendChild(targetElement)
     }
