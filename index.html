@@ -9,8 +9,10 @@
 </head>
 <body>
     <p class="github">Code Hosted at - <a href="https://github.com/RoshanSalian/MatrixSwapper" target="_blank">Github</a></p>
+    <button id="add">Add</button>
+    
     <div class="table-container">
-        <table>
+        <table id="container">
             <tr>
                 <td id="cell-1-1" draggable=true class="draggable"><div id="1R1C" class="box one">100</div></td>
                 <td id="cell-1-2" draggable=true class="draggable"><div id="1R2C" class="box two">200</div></td>
@@ -26,6 +28,9 @@
                 <td id="cell-3-2" draggable=true class="draggable"><div id="3R2C" class="box eigth">800</div></td>
                 <td id="cell-3-3" draggable=true class="draggable"><div id="3R3C" class="box nine">900</div></td>
             </tr>
+
+            <!-- New Rows go here -->
+
         </table>
 
         <button id="undo" disabled>Undo</button>
